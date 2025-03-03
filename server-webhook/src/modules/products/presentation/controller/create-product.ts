@@ -17,6 +17,13 @@ export class CreateProductController implements Controller {
       }
     }
 
+    if (name.trim().length < 3) {
+      return {
+        statusCode: 400,
+        body: new Error('name is not valid for a product')
+      }
+    }
+
     if (typeof price !== 'number') {
       return {
         statusCode: 400,
