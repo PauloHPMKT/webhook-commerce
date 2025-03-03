@@ -1,5 +1,13 @@
+import { Controller } from "../../../../globals/protocol/controller";
+import { CreateProductController } from "./create-product";
+
+const makeSut = (): Controller => {
+  return new CreateProductController();
+}
+
 describe('CreateProductController', () => {
   it('should be defined', () => {
-    expect(1).toBe(1);
+    const sut = makeSut();
+    expect(sut).toBeDefined();
   });
 })
