@@ -1,4 +1,5 @@
 import { MissingParamError } from "../../../../shared/presentation/errors/missing-param-error";
+import { badRequest } from "../../../../shared/presentation/helpers/http-responses";
 import {
   Controller,
   HttpRequest,
@@ -11,25 +12,16 @@ export class CreateProductController implements Controller {
     const requiredFields = ['name', 'brand', 'description', 'price', 'quantity'];
     for (const field of requiredFields) {
       if (!httpRequest.body[field]) {
-        return {
-          statusCode: 400,
-          body: new MissingParamError(field)
-        }
+        return badRequest(new MissingParamError(field));
       }
     }
 
     if (name.trim().length < 3) {
-      return {
-        statusCode: 400,
-        body: new Error('name is not valid for a product')
-      }
+      return badRequest(new Error('name is not valid for a product'));
     }
 
     if (typeof price !== 'number') {
-      return {
-        statusCode: 400,
-        body: new Error('invalid param: price')
-      }
+      return badRequest(new Error('price is not valid for a product'));
     }
 
   }

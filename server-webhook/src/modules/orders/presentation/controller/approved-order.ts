@@ -1,7 +1,7 @@
 import { ApprovedOrder } from "../../domain/protocols/usecases/approved-order";
-import { Controller } from "../protocol/controller";
-import { HttpRequest } from "../protocol/request";
-import { HttpResponse } from "../protocol/response";
+import { Controller } from "../../../../shared/presentation/protocol/controller";
+import { HttpRequest } from "../../../../shared/presentation/protocol/request";
+import { HttpResponse } from "../../../../shared/presentation/protocol/response";
 
 export class ApprovedOrderController implements Controller {
   constructor(private readonly approvedOrder: ApprovedOrder) {}

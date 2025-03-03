@@ -1,9 +1,9 @@
 import { CreateOrderDTO } from "../../data/models/create-order";
 import { CreateOrder } from "../../domain/protocols/usecases/create-order";
-import { badRequest, created, serverError } from "../helpers/http-responses";
-import { Controller } from "../protocol/controller";
-import { HttpRequest } from "../protocol/request";
-import { HttpResponse } from "../protocol/response";
+import { badRequest, created, serverError } from "../../../../shared/presentation/helpers/http-responses";
+import { Controller } from "../../../../shared/presentation/protocol/controller";
+import { HttpRequest } from "../../../../shared/presentation/protocol/request";
+import { HttpResponse } from "../../../../shared/presentation/protocol/response";
 
 export class CreateOrderController implements Controller {
   constructor(private readonly createOrderUseCase: CreateOrder) {}

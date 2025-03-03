@@ -1,7 +1,7 @@
 import { GetOrders } from "../../domain/protocols/usecases/get-orders";
-import { noContent, ok, serverError } from "../helpers/http-responses";
-import { Controller } from "../protocol/controller";
-import { HttpResponse } from "../protocol/response";
+import { noContent, ok, serverError } from "../../../../shared/presentation/helpers/http-responses";
+import { Controller } from "../../../../shared/presentation/protocol/controller";
+import { HttpResponse } from "../../../../shared/presentation/protocol/response";
 
 export class GetOrdersController implements Controller {
   constructor(private readonly getOrders: GetOrders) {}
