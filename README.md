@@ -1,0 +1,1 @@
+Esse projeto se coneta com o projeto que simula um carrinho de compras utilizando o VueJS

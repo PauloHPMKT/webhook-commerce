@@ -1,0 +1,22 @@
+POST http://localhost:3001/create-order
+Content-Type: application/json
+
+{
+  "status": "CREATED",
+  "paymentData": [
+    {
+      "amount": 500,
+      "currency": "BRL",
+      "paymentMethod": "credit_card",
+      "default": false,
+      "creditCard": {
+        "number": "3216549870123456",
+        "expirationDate": "12/2025",
+        "cvv": "667"
+      }
+    }
+  ]
+}
+
+###
+GET http://localhost:3001/orders

@@ -1,0 +1,97 @@
+[
+  {
+    "id": "bf1b54f805cce41bf3743e31",
+    "status": "PAID",
+    "paymentData": [
+      {
+        "transactionId": "h6ojixxqsmn",
+        "amount": 100,
+        "currency": "USD",
+        "paymentMethod": "credit_card",
+        "creditCard": {
+          "number": "1234567890123456",
+          "expirationDate": "12/2022",
+          "cvv": "123"
+        }
+      }
+    ],
+    "created_at": "2025-03-02T23:27:26.064Z",
+    "updated_at": "2025-03-02T23:32:00.037Z"
+  },
+  {
+    "id": "800fe979484607396639e62f",
+    "status": "PAID",
+    "paymentData": [
+      {
+        "transactionId": "60gtgwvaz4q",
+        "amount": 1500,
+        "currency": "BRL",
+        "paymentMethod": "credit_card",
+        "creditCard": {
+          "number": "3216549870123456",
+          "expirationDate": "12/2025",
+          "cvv": "667"
+        }
+      }
+    ],
+    "created_at": "2025-03-02T23:36:44.291Z",
+    "updated_at": "2025-03-02T23:37:00.011Z"
+  },
+  {
+    "id": "52625b7625bee234aaf012be",
+    "status": "PAID",
+    "paymentData": [
+      {
+        "transactionId": "x1fsnlesf1h",
+        "amount": 349.9,
+        "currency": "BRL",
+        "paymentMethod": "credit_card",
+        "creditCard": {
+          "number": "3216549870123456",
+          "expirationDate": "12/2025",
+          "cvv": "667"
+        }
+      }
+    ],
+    "created_at": "2025-03-02T23:39:00.941Z",
+    "updated_at": "2025-03-02T23:40:00.012Z"
+  },
+  {
+    "id": "3e48525d22cdc763b23ba6bb",
+    "status": "PAID",
+    "paymentData": [
+      {
+        "transactionId": "9frhfvffhzf",
+        "amount": 700,
+        "currency": "BRL",
+        "paymentMethod": "credit_card",
+        "creditCard": {
+          "number": "3216549870123456",
+          "expirationDate": "12/2025",
+          "cvv": "667"
+        }
+      }
+    ],
+    "created_at": "2025-03-03T13:45:57.944Z",
+    "updated_at": "2025-03-03T13:46:00.022Z"
+  },
+  {
+    "id": "f70d0bc69026cdf50b835d5a",
+    "status": "PAID",
+    "paymentData": [
+      {
+        "transactionId": "fqhredjjrn8",
+        "amount": 500,
+        "currency": "BRL",
+        "paymentMethod": "credit_card",
+        "creditCard": {
+          "number": "3216549870123456",
+          "expirationDate": "12/2025",
+          "cvv": "667"
+        }
+      }
+    ],
+    "created_at": "2025-03-03T13:46:09.581Z",
+    "updated_at": "2025-03-03T13:47:00.030Z"
+  }
+]

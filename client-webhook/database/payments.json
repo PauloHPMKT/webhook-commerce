@@ -1,0 +1,82 @@
+[
+  {
+    "transactions": [
+      {
+        "id": "h6ojixxqsmn",
+        "amount": 100,
+        "method": "CC",
+        "creditCardInfos": {
+          "number": "1234567890123456",
+          "expirationDate": "12/2022",
+          "cvv": "123"
+        }
+      }
+    ],
+    "status": "approved",
+    "notified": true
+  },
+  {
+    "transactions": [
+      {
+        "id": "60gtgwvaz4q",
+        "amount": 1500,
+        "method": "CC",
+        "creditCardInfos": {
+          "number": "3216549870123456",
+          "expirationDate": "12/2025",
+          "cvv": "667"
+        }
+      }
+    ],
+    "status": "approved",
+    "notified": true
+  },
+  {
+    "transactions": [
+      {
+        "id": "x1fsnlesf1h",
+        "amount": 349.9,
+        "method": "CC",
+        "creditCardInfos": {
+          "number": "3216549870123456",
+          "expirationDate": "12/2025",
+          "cvv": "667"
+        }
+      }
+    ],
+    "status": "approved",
+    "notified": true
+  },
+  {
+    "transactions": [
+      {
+        "id": "9frhfvffhzf",
+        "amount": 700,
+        "method": "CC",
+        "creditCardInfos": {
+          "number": "3216549870123456",
+          "expirationDate": "12/2025",
+          "cvv": "667"
+        }
+      }
+    ],
+    "status": "approved",
+    "notified": true
+  },
+  {
+    "transactions": [
+      {
+        "id": "fqhredjjrn8",
+        "amount": 500,
+        "method": "CC",
+        "creditCardInfos": {
+          "number": "3216549870123456",
+          "expirationDate": "12/2025",
+          "cvv": "667"
+        }
+      }
+    ],
+    "status": "approved",
+    "notified": true
+  }
+]
