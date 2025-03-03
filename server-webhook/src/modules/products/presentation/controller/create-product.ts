@@ -4,8 +4,9 @@ import {
   HttpResponse
 } from "../../../../shared/presentation/protocol";
 import { MissingParamError } from "../../../../shared/presentation/errors/missing-param-error";
-import { badRequest, serverError } from "../../../../shared/presentation/helpers/http-responses";
+import { badRequest, created, serverError } from "../../../../shared/presentation/helpers/http-responses";
 import { CreateProduct } from "../../domain/usecases/create-product";
+import { CreateProductModel } from "../../domain/models/create-product";
 
 export class CreateProductController implements Controller {
   constructor(private readonly createProduct: CreateProduct) {}
@@ -30,8 +31,10 @@ export class CreateProductController implements Controller {
         description,
         price,
         quantity
-      };
-      await this.createProduct.execute(productData);
+      } as CreateProductModel.Params;
+      const product = await this.createProduct.execute(productData);
+
+      return created(product);
     } catch (error) {
       console.error(error);
       return serverError();
