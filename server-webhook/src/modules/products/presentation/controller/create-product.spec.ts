@@ -10,4 +10,19 @@ describe('CreateProductController', () => {
     const sut = makeSut();
     expect(sut).toBeDefined();
   });
+
+  it('should return 400 if no name is provided', async () => {
+    const sut = makeSut();
+    const httpRequest = {
+      body: {
+        brand: 'any_brand',
+        description: 'any_description',
+        price: 10,
+        quantity: 10,
+      }
+    }
+    const response = await sut.handle(httpRequest);
+    expect(response.statusCode).toBe(400);
+    expect(response.body).toEqual(new Error('name is not valid for a product'));
+  })
 })
