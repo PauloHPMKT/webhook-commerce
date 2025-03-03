@@ -23,7 +23,7 @@ describe('CreateProductController', () => {
     }
     const response = await sut.handle(httpRequest);
     expect(response.statusCode).toBe(400);
-    expect(response.body).toEqual(new Error('name is not valid for a product'));
+    expect(response.body).toEqual(new Error('missing param: name'));
   });
 
   it('should return 400 if no brand is provided', async () => {
@@ -38,7 +38,7 @@ describe('CreateProductController', () => {
     }
     const response = await sut.handle(httpRequest);
     expect(response.statusCode).toBe(400);
-    expect(response.body).toEqual(new Error('brand is not valid for a product'));
+    expect(response.body).toEqual(new Error('missing param: brand'));
   });
 
   it('should return 400 if no description is provided', async () => {
@@ -53,6 +53,6 @@ describe('CreateProductController', () => {
     }
     const response = await sut.handle(httpRequest);
     expect(response.statusCode).toBe(400);
-    expect(response.body).toEqual(new Error('add a description for a product'));
+    expect(response.body).toEqual(new Error('missing param: description'));
   });
 })
