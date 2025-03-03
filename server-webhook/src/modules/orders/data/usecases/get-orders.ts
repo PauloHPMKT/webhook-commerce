@@ -1,3 +1,4 @@
+import { Product } from "../../../products/domain/entities/Product";
 import { OrderEntity } from "../../domain/entities/Order";
 import { GetOrders } from "../../domain/protocols/usecases/get-orders";
 import { GetOrdersRepository } from "../protocol/get-orders";
@@ -10,6 +11,7 @@ export class GetOrdersUseCase implements GetOrders {
     if (!orders.length) {
       return [];
     }
+
     return orders;
   }
 }
