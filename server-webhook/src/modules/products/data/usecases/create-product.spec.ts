@@ -26,5 +26,19 @@ describe('CreateProductUseCase', () => {
     const promise = sut.execute(productData);
     await expect(promise).rejects.toThrow();
     expect(promise).rejects.toThrow('name is not valid for a product');
+  });
+
+  it('should throw an error if price is less than or equal to 0', async () => {
+    const { sut } = makeSut();
+    const productData: CreateProductModel.Params = {
+      name: 'Product',
+      brand: 'any_brand',
+      description: 'any_description',
+      price: 0,
+      quantity: 10,
+    };
+    const promise = sut.execute(productData);
+    await expect(promise).rejects.toThrow();
+    expect(promise).rejects.toThrow('price is not valid for a product');
   })
 });
