@@ -138,4 +138,23 @@ describe('CreateProductController', () => {
     await sut.handle(httpRequest);
     expect(executeSpy).toHaveBeenCalledWith(httpRequest.body);
   });
+
+  it('should return 500 if CreateProductUseCase throws', async () => {
+    const { sut, createProductUseCaseStub } = makeSut();
+    jest.spyOn(createProductUseCaseStub, 'execute').mockImplementationOnce(() => {
+      throw new Error();
+    });
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        brand: 'any_brand',
+        description: 'any_description',
+        price: 10,
+        quantity: 10,
+      }
+    }
+    const response = await sut.handle(httpRequest);
+    expect(response.statusCode).toBe(500);
+    expect(response.body).toEqual(new Error('Internal server error'));
+  })
 })
