@@ -55,4 +55,19 @@ describe('CreateProductController', () => {
     expect(response.statusCode).toBe(400);
     expect(response.body).toEqual(new Error('missing param: description'));
   });
+
+  it('should return 400 if no price is provided', async () => {
+    const sut = makeSut();
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        brand: 'any_brand',
+        description: 'any_description',
+        quantity: 10,
+      }
+    }
+    const response = await sut.handle(httpRequest);
+    expect(response.statusCode).toBe(400);
+    expect(response.body).toEqual(new Error('missing param: price'));
+  })
 })
