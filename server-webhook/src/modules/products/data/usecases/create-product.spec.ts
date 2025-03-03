@@ -81,10 +81,6 @@ describe('CreateProductUseCase', () => {
       description: 'valid_description',
       price: 10,
       quantity: 10,
-      images: null,
-      discount: null,
-      category: [],
-      status: Product.Status.ACTIVE,
     };
     await sut.execute(productData);
     expect(createSpy).toHaveBeenCalledWith(expect.objectContaining({
@@ -111,12 +107,33 @@ describe('CreateProductUseCase', () => {
       description: 'valid_description',
       price: 10,
       quantity: 10,
+    };
+    const promise = sut.execute(productData);
+    await expect(promise).rejects.toThrow();
+  });
+
+  it('should return a product on success', async () => {
+    const { sut } = makeSut();
+    const productData: CreateProductModel.Params = {
+      name: 'valid_name',
+      brand: 'valid_brand',
+      description: 'valid_description',
+      price: 10,
+      quantity: 10,
+    };
+    const product = await sut.execute(productData);
+    expect(product).toEqual({
+      id: 'valid_id',
+      name: 'valid_name',
+      brand: 'valid_brand',
+      description: 'valid_description',
+      price: 10,
+      quantity: 10,
       images: null,
       discount: null,
       category: [],
       status: Product.Status.ACTIVE,
-    };
-    const promise = sut.execute(productData);
-    await expect(promise).rejects.toThrow();
+      createdAt: new Date('2025-09-01'),
+    });
   })
 });
