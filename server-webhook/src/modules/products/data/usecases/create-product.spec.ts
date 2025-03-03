@@ -6,20 +6,19 @@ import { CreateProductUseCase } from "./create-product";
 const makeCreateProductRepository = (): CreateProductRepository => {
   class CreateProductRepositoryStub implements CreateProductRepository {
     async create(data: Product): Promise<CreateProductModel.Result> {
-      return {
-        id: data.id,
-        code: data.code,
-        name: data.name,
-        brand: data.brand,
-        description: data.description,
-        price: data.price,
-        quantity: data.quantity,
-        images: data.images,
-        discount: data.discount,
-        category: data.category,
-        status: data.status,
-        createdAt: data.createdAt,
-      };
+      return new Promise(resolve => resolve({
+        id: 'valid_id',
+        name: 'valid_name',
+        brand: 'valid_brand',
+        description: 'valid_description',
+        price: 10,
+        quantity: 10,
+        images: null,
+        discount: null,
+        category: [],
+        status: Product.Status.ACTIVE,
+        createdAt: new Date('2025-09-01'),
+      }));
     }
   }
   return new CreateProductRepositoryStub();
@@ -100,4 +99,24 @@ describe('CreateProductUseCase', () => {
       status: Product.Status.ACTIVE,
     }));
   });
+
+  it('should throw if createProductRepository throws', async () => {
+    const { sut, createProductRepository } = makeSut();
+    jest.spyOn(createProductRepository, 'create').mockImplementationOnce(() => {
+      throw new Error();
+    });
+    const productData: CreateProductModel.Params = {
+      name: 'valid_name',
+      brand: 'valid_brand',
+      description: 'valid_description',
+      price: 10,
+      quantity: 10,
+      images: null,
+      discount: null,
+      category: [],
+      status: Product.Status.ACTIVE,
+    };
+    const promise = sut.execute(productData);
+    await expect(promise).rejects.toThrow();
+  })
 });
