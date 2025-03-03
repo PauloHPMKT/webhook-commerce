@@ -2,7 +2,7 @@ import {
   Controller,
   HttpRequest,
   HttpResponse
-} from "../../../../globals/protocol";
+} from "../../../../shared/presentation/protocol";
 
 export class CreateProductController implements Controller {
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {

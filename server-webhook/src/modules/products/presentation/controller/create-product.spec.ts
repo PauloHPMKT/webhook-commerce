@@ -1,4 +1,4 @@
-import { Controller } from "../../../../globals/protocol/controller";
+import { Controller } from "../../../../shared/presentation/protocol/controller";
 import { CreateProductController } from "./create-product";
 
 const makeSut = (): Controller => {
