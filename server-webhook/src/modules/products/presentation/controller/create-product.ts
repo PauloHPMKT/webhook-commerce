@@ -17,5 +17,12 @@ export class CreateProductController implements Controller {
         body: new Error('brand is not valid for a product')
       }
     }
+
+    if (!httpRequest.body.description) {
+      return {
+        statusCode: 400,
+        body: new Error('add a description for a product')
+      }
+    }
   }
 }
