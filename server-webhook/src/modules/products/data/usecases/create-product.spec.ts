@@ -14,7 +14,7 @@ describe('CreateProductUseCase', () => {
     expect(sut).toBeDefined();
   });
 
-  it('should throw an erro if name is less than 3 characters', async () => {
+  it('should throw an error if name is less than 3 characters', async () => {
     const { sut } = makeSut();
     const productData: CreateProductModel.Params = {
       name: 'Pr',
@@ -25,5 +25,6 @@ describe('CreateProductUseCase', () => {
     };
     const promise = sut.execute(productData);
     await expect(promise).rejects.toThrow();
+    expect(promise).rejects.toThrow('name is not valid for a product');
   })
 });
