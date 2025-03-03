@@ -4,6 +4,11 @@ import { HttpResponse } from "../../../../globals/protocol/response";
 
 export class CreateProductController implements Controller {
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
-    return;
+    if (!httpRequest.body.name) {
+      return {
+        statusCode: 400,
+        body: new Error('name is not valid for a product')
+      }
+    }
   }
 }
