@@ -7,6 +7,10 @@ export namespace CreateProductModel {
     description: string;
     price: number;
     quantity: number;
+    images?: null,
+    discount?: null,
+    category?: string[],
+    status?: Product.Status,
   };
 
   export type Result = Omit<

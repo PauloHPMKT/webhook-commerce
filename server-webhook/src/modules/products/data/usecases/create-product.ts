@@ -1,10 +1,13 @@
 import { Product } from "../../domain/entities/Product";
 import { CreateProductModel } from "../../domain/models/create-product";
 import { CreateProduct } from "../../domain/usecases/create-product";
+import { CreateProductRepository } from "../protocols/create-product-repository";
 
 export class CreateProductUseCase implements CreateProduct {
+  constructor(private readonly createProductRepository: CreateProductRepository) {}
+
   async execute(data: CreateProductModel.Params): Promise<CreateProductModel.Result> {
-    const product = new Product({
+    const newProduct = new Product({
       name: data.name,
       brand: data.brand,
       description: data.description,
@@ -12,6 +15,7 @@ export class CreateProductUseCase implements CreateProduct {
       quantity: data.quantity,
     });
 
+    const product = await this.createProductRepository.create(newProduct);
     return product;
   }
 }
