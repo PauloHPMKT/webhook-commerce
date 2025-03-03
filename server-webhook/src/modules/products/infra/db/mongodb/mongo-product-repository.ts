@@ -14,7 +14,6 @@ export class MongoProductRepository implements CreateProductRepository {
     await productCollection.insertOne(productData);
     const product = await productCollection.findOne({ _id: productData._id });
 
-    const { _id, ...productWithoutId } = product;
-    return { ...productWithoutId, id: _id.toHexString() } as CreateProductModel.Repository;
+    return MongoHelper.map(product);
   }
 }
