@@ -2,12 +2,12 @@ import { randomBytes } from "crypto";
 
 export class Product {
   public readonly id: string;
-  public code: string;
   public name: string;
   public brand: string;
   public description: string;
   public price: number;
   public quantity: number;
+  public code?: string;
   public images?: string[];
   public status?: Product.Status;
   public discount?: number;
