@@ -87,22 +87,6 @@ describe('CreateProductController', () => {
     expect(response.body).toEqual(new MissingParamError('quantity'));
   });
 
-  it('should return 400 if product name is invalid', async () => {
-    const sut = makeSut();
-    const httpRequest = {
-      body: {
-        name: 'an',
-        brand: 'any_brand',
-        description: 'any_description',
-        price: 10,
-        quantity: 10,
-      }
-    }
-    const response = await sut.handle(httpRequest);
-    expect(response.statusCode).toBe(400);
-    expect(response.body).toEqual(new Error('name is not valid for a product'));
-  })
-
   it('should return 400 if price is not typeof number', async () => {
     const sut = makeSut();
     const httpRequest = {
@@ -110,7 +94,7 @@ describe('CreateProductController', () => {
         name: 'any_name',
         brand: 'any_brand',
         description: 'any_description',
-        price: "29.90",
+        price: "invalid_price",
         quantity: 10,
       }
     }

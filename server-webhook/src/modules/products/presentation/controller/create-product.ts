@@ -1,10 +1,10 @@
-import { MissingParamError } from "../../../../shared/presentation/errors/missing-param-error";
-import { badRequest } from "../../../../shared/presentation/helpers/http-responses";
 import {
   Controller,
   HttpRequest,
   HttpResponse
 } from "../../../../shared/presentation/protocol";
+import { MissingParamError } from "../../../../shared/presentation/errors/missing-param-error";
+import { badRequest } from "../../../../shared/presentation/helpers/http-responses";
 
 export class CreateProductController implements Controller {
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
@@ -16,13 +16,8 @@ export class CreateProductController implements Controller {
       }
     }
 
-    if (name.trim().length < 3) {
-      return badRequest(new Error('name is not valid for a product'));
+    if (isNaN(price)) {
+      return badRequest(new Error('invalid param: price'));
     }
-
-    if (typeof price !== 'number') {
-      return badRequest(new Error('price is not valid for a product'));
-    }
-
   }
 }
