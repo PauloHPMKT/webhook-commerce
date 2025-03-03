@@ -5,8 +5,11 @@ import {
 } from "../../../../shared/presentation/protocol";
 import { MissingParamError } from "../../../../shared/presentation/errors/missing-param-error";
 import { badRequest } from "../../../../shared/presentation/helpers/http-responses";
+import { CreateProduct } from "../../domain/usecases/create-product";
 
 export class CreateProductController implements Controller {
+  constructor(private readonly createProduct: CreateProduct) {}
+
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     const { name, brand, description, price, quantity } = httpRequest.body;
     const requiredFields = ['name', 'brand', 'description', 'price', 'quantity'];
@@ -19,5 +22,14 @@ export class CreateProductController implements Controller {
     if (isNaN(price)) {
       return badRequest(new Error('invalid param: price'));
     }
+
+    const productData = {
+      name,
+      brand,
+      description,
+      price,
+      quantity
+    };
+    await this.createProduct.execute(productData);
   }
 }
