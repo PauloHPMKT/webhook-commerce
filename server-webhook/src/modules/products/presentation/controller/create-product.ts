@@ -4,7 +4,7 @@ import { HttpResponse } from "../../../../globals/protocol/response";
 
 export class CreateProductController implements Controller {
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
-    const requiredFields = ['name', 'brand', 'description', 'price'];
+    const requiredFields = ['name', 'brand', 'description', 'price', 'quantity'];
     for (const field of requiredFields) {
       if (!httpRequest.body[field]) {
         return {
