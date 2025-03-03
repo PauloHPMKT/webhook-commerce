@@ -1,3 +1,4 @@
+import { MissingParamError } from "../../../../shared/presentation/errors/missing-param-error";
 import {
   Controller,
   HttpRequest,
@@ -12,7 +13,7 @@ export class CreateProductController implements Controller {
       if (!httpRequest.body[field]) {
         return {
           statusCode: 400,
-          body: new Error(`missing param: ${field}`)
+          body: new MissingParamError(field)
         }
       }
     }

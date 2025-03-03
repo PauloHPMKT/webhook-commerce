@@ -1,3 +1,4 @@
+import { MissingParamError } from "../../../../shared/presentation/errors/missing-param-error";
 import { Controller } from "../../../../shared/presentation/protocol/controller";
 import { CreateProductController } from "./create-product";
 
@@ -23,7 +24,7 @@ describe('CreateProductController', () => {
     }
     const response = await sut.handle(httpRequest);
     expect(response.statusCode).toBe(400);
-    expect(response.body).toEqual(new Error('missing param: name'));
+    expect(response.body).toEqual(new MissingParamError('name'));
   });
 
   it('should return 400 if no brand is provided', async () => {
@@ -38,7 +39,7 @@ describe('CreateProductController', () => {
     }
     const response = await sut.handle(httpRequest);
     expect(response.statusCode).toBe(400);
-    expect(response.body).toEqual(new Error('missing param: brand'));
+    expect(response.body).toEqual(new MissingParamError('brand'));
   });
 
   it('should return 400 if no description is provided', async () => {
@@ -53,7 +54,7 @@ describe('CreateProductController', () => {
     }
     const response = await sut.handle(httpRequest);
     expect(response.statusCode).toBe(400);
-    expect(response.body).toEqual(new Error('missing param: description'));
+    expect(response.body).toEqual(new MissingParamError('description'));
   });
 
   it('should return 400 if no price is provided', async () => {
@@ -68,7 +69,7 @@ describe('CreateProductController', () => {
     }
     const response = await sut.handle(httpRequest);
     expect(response.statusCode).toBe(400);
-    expect(response.body).toEqual(new Error('missing param: price'));
+    expect(response.body).toEqual(new MissingParamError('price'));
   });
 
   it('should return 400 if no quantity is provided', async () => {
@@ -83,7 +84,7 @@ describe('CreateProductController', () => {
     }
     const response = await sut.handle(httpRequest);
     expect(response.statusCode).toBe(400);
-    expect(response.body).toEqual(new Error('missing param: quantity'));
+    expect(response.body).toEqual(new MissingParamError('quantity'));
   });
 
   it('should return 400 if product name is invalid', async () => {
