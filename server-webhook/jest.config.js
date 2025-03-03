@@ -10,7 +10,7 @@ const config = {
   coverageDirectory: 'coverage',
   roots: ['<rootDir>/src'],
   testEnvironment: 'node',
-  //preset: '@shelf/jest-mongodb',
+  preset: '@shelf/jest-mongodb',
   transform: {
     '^.+\\.(t|j)sx?$': '@swc/jest',
   },
