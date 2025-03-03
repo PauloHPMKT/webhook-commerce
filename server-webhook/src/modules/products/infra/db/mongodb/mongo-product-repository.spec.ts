@@ -1,6 +1,5 @@
 import { MongoProductRepository } from './mongo-product-repository';
 import { MongoHelper } from './helpers/mongo-client';
-import { Product } from '../../../domain/entities/Product';
 import { CreateProductModel } from '../../../domain/models/product';
 import { ObjectId } from 'mongodb';
 

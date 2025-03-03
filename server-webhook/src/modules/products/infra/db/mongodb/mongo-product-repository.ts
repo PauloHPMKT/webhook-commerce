@@ -6,8 +6,6 @@ import { MongoHelper } from "./helpers/mongo-client";
 export class MongoProductRepository implements CreateProductRepository {
   async create(data: CreateProductModel.Repository): Promise<CreateProductModel.Repository> {
     const productCollection = MongoHelper.getCollection('products');
-    console.log('data', data);
-
     const productData = {
       ...data,
       _id: new ObjectId(data.id),

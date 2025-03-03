@@ -13,6 +13,9 @@ export class CreateProductUseCase implements CreateProduct {
       description: data.description,
       price: data.price,
       quantity: data.quantity,
+      images: data.images,
+      discount: data.discount,
+      category: data.category,
     });
 
     const product = await this.createProductRepository.create(newProduct);

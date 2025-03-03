@@ -17,13 +17,16 @@ export class CreateProductController implements Controller {
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      const { name, brand, description, price, quantity } = httpRequest.body;
       const requiredFields = ['name', 'brand', 'description', 'price', 'quantity'];
       for (const field of requiredFields) {
         if (!httpRequest.body[field]) {
           return badRequest(new MissingParamError(field));
         }
       }
+
+      const {
+        name, brand, description, price, quantity, images, discount, category,
+      } = httpRequest.body;
 
       if (isNaN(price)) {
         return badRequest(new Error('invalid param: price'));
@@ -34,7 +37,10 @@ export class CreateProductController implements Controller {
         brand,
         description,
         price,
-        quantity
+        quantity,
+        images,
+        discount,
+        category,
       } as CreateProductModel.Params;
       const product = await this.createProduct.execute(productData);
 
