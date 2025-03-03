@@ -1,12 +1,29 @@
 import { MissingParamError } from "../../../../shared/presentation/errors/missing-param-error";
 import { Controller } from "../../../../shared/presentation/protocol/controller";
+import { Product } from "../../domain/entities/Product";
+import { CreateProductModel } from "../../domain/models/create-product";
 import { CreateProduct } from "../../domain/usecases/create-product";
 import { CreateProductController } from "./create-product";
 
 const makeCreateProductUseCase = (): CreateProduct => {
   class CreateProductUseCaseStub implements CreateProduct {
-    async execute(data: any): Promise<any> {
-      return new Promise(resolve => resolve({}));
+    async execute(data: CreateProductModel.Params): Promise<CreateProductModel.Result> {
+      const createdAt = new Date('2025-09-01T00:00:00.000Z');
+      const product = {
+        id: 'valid_id',
+        code: 'valid_code',
+        name: 'valid_name',
+        brand: 'valid_brand',
+        description: 'valid_description',
+        price: 10,
+        quantity: 10,
+        images: null,
+        discount: null,
+        category: [],
+        status: Product.Status.ACTIVE,
+        createdAt,
+      };
+      return new Promise(resolve => resolve(product));
     }
   }
   return new CreateProductUseCaseStub();
@@ -156,5 +173,34 @@ describe('CreateProductController', () => {
     const response = await sut.handle(httpRequest);
     expect(response.statusCode).toBe(500);
     expect(response.body).toEqual(new Error('Internal server error'));
-  })
+  });
+
+  it('should return 201 if valid data is provided', async () => {
+    const { sut } = makeSut();
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        brand: 'any_brand',
+        description: 'any_description',
+        price: 10,
+        quantity: 10,
+      }
+    }
+    const response = await sut.handle(httpRequest);
+    expect(response.statusCode).toBe(201);
+    expect(response.body).toEqual({
+      id: 'valid_id',
+      code: 'valid_code',
+      name: 'valid_name',
+      brand: 'valid_brand',
+      description: 'valid_description',
+      price: 10,
+      quantity: 10,
+      images: null,
+      discount: null,
+      category: [],
+      status: Product.Status.ACTIVE,
+      createdAt: new Date('2025-09-01T00:00:00.000Z'),
+    });
+  });
 })
