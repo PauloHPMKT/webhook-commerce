@@ -1,5 +1,4 @@
 import { Controller } from "../../../../shared/presentation/protocol";
-import { OrderEntity } from "../../domain/entities/Order";
 import { GetOrdersModel } from "../../domain/models/get-orders";
 import { GetOrders } from "../../domain/protocols/usecases/get-orders";
 import { GetOrdersController } from "./get-orders";
@@ -32,4 +31,12 @@ describe('GetOrdersController', () => {
     const { sut } = makeSut();
     expect(sut).toBeDefined();
   });
+
+  it('should return 204 if no orders are found', async () => {
+    const { sut, getOrdersUseCase } = makeSut();
+    jest.spyOn(getOrdersUseCase, 'execute').mockResolvedValueOnce([]);
+    const response = await sut.handle();
+    expect(response.statusCode).toBe(204);
+    expect(response.body).toEqual([]);
+  })
 });
