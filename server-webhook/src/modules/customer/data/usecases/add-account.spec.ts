@@ -1,5 +1,15 @@
 import { Encrypter } from "../protocols/encrypter";
+import { FindCustomerRepository } from "../protocols/find-customer-repository";
 import { AddAccountUseCase } from "./add-account";
+
+const makeFindCustomerByEmailRepository = (): FindCustomerRepository => {
+  class FindCustomerByEmailRepositoryStub implements FindCustomerRepository {
+    async findByEmail(email: string): Promise<boolean> {
+      return new Promise((resolve) => resolve(false));;
+    }
+  }
+  return new FindCustomerByEmailRepositoryStub();
+}
 
 const makeEncripter = (): Encrypter => {
   class EncrypterStub implements Encrypter {
@@ -11,17 +21,20 @@ const makeEncripter = (): Encrypter => {
 }
 
 const makeSut = (): SutTypes => {
-  const encrypter = makeEncripter();
-  const sut = new AddAccountUseCase(encrypter);
+  const findCustomerByEmailRepositoryStub = makeFindCustomerByEmailRepository();
+  const encrypterStub = makeEncripter();
+  const sut = new AddAccountUseCase(encrypterStub, findCustomerByEmailRepositoryStub);
   return {
     sut,
-    encrypter,
+    encrypterStub,
+    findCustomerByEmailRepositoryStub
   }
 }
 
 interface SutTypes {
   sut: AddAccountUseCase;
-  encrypter: Encrypter;
+  encrypterStub: Encrypter;
+  findCustomerByEmailRepositoryStub: FindCustomerRepository;
 }
 
 describe('AddAccountUseCase', () => {
@@ -30,9 +43,23 @@ describe('AddAccountUseCase', () => {
     expect(sut).toBeDefined();
   });
 
+  it('should throw an exception if customer exists', async () => {
+    const { sut, findCustomerByEmailRepositoryStub } = makeSut();
+    jest.spyOn(findCustomerByEmailRepositoryStub, 'findByEmail').mockImplementationOnce(async () => {
+      return true;
+    });
+    const accountData = {
+      name: 'any_name',
+      email: 'any_email@mail.com',
+      password: 'any_password'
+    }
+    const promise = sut.execute(accountData);
+    await expect(promise).rejects.toThrow();
+  });
+
   it('should call Encrypter with correct password', async () =>{
-    const { sut, encrypter } = makeSut();
-    const hashSpy = jest.spyOn(encrypter, 'hash');
+    const { sut, encrypterStub } = makeSut();
+    const hashSpy = jest.spyOn(encrypterStub, 'hash');
     const accountData = {
       name: 'any_name',
       email: 'any_email@mail.com',
