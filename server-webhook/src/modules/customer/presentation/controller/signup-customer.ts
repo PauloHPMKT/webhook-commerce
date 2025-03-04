@@ -3,10 +3,14 @@ import {
   HttpRequest,
   HttpResponse
 } from "../../../../shared/presentation/protocol";
-import { MissingParamError } from "../../../../shared/presentation/errors/missing-param-error";
-import { badRequest, created, serverError } from "../../../../shared/presentation/helpers/http-responses";
+import {
+  created,
+  badRequest,
+  serverError
+} from "../../../../shared/presentation/helpers/http-responses";
 import { EmailValidator } from "../protocols/email-validator";
 import { InvalidParamError } from "../../../../shared/presentation/errors/invalid-param-error";
+import { MissingParamError } from "../../../../shared/presentation/errors/missing-param-error";
 import { AddAccount, AddAccountModel } from "../../domain/usecases/add-aacount";
 
 export class SignUpCustomerController implements Controller {
