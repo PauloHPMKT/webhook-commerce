@@ -171,5 +171,24 @@ describe('SignupCustomerController', () => {
     const result = await sut.handle(httpRequest)
     expect(result.statusCode).toBe(500)
     expect(result.body).toEqual(new Error('Internal server error'))
+  });
+
+  it('should call AddAccount with correct values', async () => {
+    const { sut, addAccountStub } = makeSut();
+    jest.spyOn(addAccountStub, 'execute')
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        email: 'any_email@mail.com',
+        password: 'password',
+        passwordConfirmation: 'password'
+      }
+    }
+    await sut.handle(httpRequest)
+    expect(addAccountStub.execute).toHaveBeenCalledWith({
+      name: 'any_name',
+      email: 'any_email@mail.com',
+      password: 'password',
+    })
   })
 });
