@@ -68,4 +68,18 @@ describe('AddAccountUseCase', () => {
     await sut.execute(accountData);
     expect(hashSpy).toHaveBeenCalledWith('any_password');
   });
+
+  it('should thorw if Encrypter throws', async () => {
+    const { sut, encrypterStub } = makeSut();
+    jest.spyOn(encrypterStub, 'hash').mockReturnValueOnce(
+      new Promise((resolve, reject) => reject(new Error())),
+    );
+    const accountData = {
+      name: 'any_name',
+      email: 'any_email@mail.com',
+      password: 'any_password'
+    };
+    const promise = sut.execute(accountData);
+    await expect(promise).rejects.toThrow();
+  });
 });
