@@ -44,6 +44,12 @@ interface SutTypes {
 }
 
 describe('CreateProductController', () => {
+  let createdAt: Date;
+
+  beforeAll(() => {
+    createdAt = new Date('2025-09-01T00:00:00.000Z');
+  });
+
   it('should be defined', () => {
     const { sut } = makeSut();
     expect(sut).toBeDefined();
@@ -200,14 +206,13 @@ describe('CreateProductController', () => {
       discount: null,
       category: [],
       status: Product.Status.ACTIVE,
-      createdAt: new Date('2025-09-01T00:00:00.000Z'),
+      createdAt,
     });
   });
 
   it('should return 201 if valid data is provided with images', async () => {
     const { sut, createProductUseCaseStub } = makeSut();
     jest.spyOn(createProductUseCaseStub, 'execute').mockImplementationOnce(async () => {
-      const createdAt = new Date('2025-09-01T00:00:00.000Z');
       const product = {
         id: 'valid_id',
         code: 'valid_code',
@@ -248,7 +253,8 @@ describe('CreateProductController', () => {
       discount: null,
       category: [],
       status: Product.Status.ACTIVE,
-      createdAt: new Date('2025-09-01T00:00:00.000Z'),
+      createdAt
     });
+    expect(response.body.images).toEqual(['image1', 'image2']);
   });
 });
