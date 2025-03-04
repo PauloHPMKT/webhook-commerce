@@ -54,7 +54,7 @@ describe('AddAccountUseCase', () => {
       password: 'any_password'
     }
     const promise = sut.execute(accountData);
-    await expect(promise).rejects.toThrow();
+    await expect(promise).rejects.toThrow('Customer already exists');
   });
 
   it('should call Encrypter with correct password', async () =>{
