@@ -1,3 +1,4 @@
+import { MissingParamError } from "../../../../shared/presentation/errors/missing-param-error";
 import { Controller } from "../../../../shared/presentation/protocol";
 import { SignUpCustomerController } from "./signup-customer";
 
@@ -17,4 +18,18 @@ describe('SignupCustomerController', () => {
     const { sut } = makeSut()
     expect(sut).toBeDefined()
   });
+
+  it('should return 400 if no name is provided', async () => {
+    const { sut } = makeSut()
+    const response = {
+      body: {
+        email: 'email@mail.com',
+        password: 'password',
+        passwordConfirmation: 'password'
+      }
+    }
+    const result = await sut.handle(response)
+    expect(result.statusCode).toBe(400)
+    expect(result.body).toEqual(new MissingParamError('name'))
+  })
 });
