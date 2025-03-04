@@ -2,12 +2,9 @@ import { Encrypter } from "../../../../../modules/customer/data/protocols/encryp
 import { AddAccountUseCase } from "../../../../../modules/customer/data/usecases/add-account";
 import { Customer } from "../../../../../modules/customer/domain/enitites/Customer";
 import { AddAccount } from "../../../../../modules/customer/domain/usecases/add-account";
+import { BcryptAdapter } from "../../../../../shared/infra/criptography/bcrypt-adapter";
 
-class EncrypterAdater implements Encrypter {
-  async hash(value: string): Promise<string> {
-    throw new Error('Method not implemented.');
-  }
-}
+
 class FindCustomerRepository implements FindCustomerRepository {
   async findByEmail(email: string): Promise<boolean> {
     throw new Error('Method not implemented.');
@@ -20,9 +17,10 @@ class AddAccountRepository implements AddAccountRepository {
 }
 
 export const makeAddAccountUseCase = (): AddAccount => {
+  const salt = 12
   const addAccountRepository = new AddAccountRepository();
   const findCustomerByEmailRepository = new FindCustomerRepository();
-  const encrypter = new EncrypterAdater();
+  const encrypter = new BcryptAdapter(salt);
   return new AddAccountUseCase(
     encrypter,
     findCustomerByEmailRepository,
