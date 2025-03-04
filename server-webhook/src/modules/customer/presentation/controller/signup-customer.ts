@@ -4,7 +4,7 @@ import {
   HttpResponse
 } from "../../../../shared/presentation/protocol";
 import { MissingParamError } from "../../../../shared/presentation/errors/missing-param-error";
-import { badRequest, serverError } from "../../../../shared/presentation/helpers/http-responses";
+import { badRequest, created, serverError } from "../../../../shared/presentation/helpers/http-responses";
 import { EmailValidator } from "../protocols/email-validator";
 import { InvalidParamError } from "../../../../shared/presentation/errors/invalid-param-error";
 import { AddAccount, AddAccountModel } from "../../domain/usecases/add-aacount";
@@ -34,11 +34,13 @@ export class SignUpCustomerController implements Controller {
         return badRequest(new InvalidParamError('passwordConfirmation'));
       }
 
-      await this.addAccount.execute({
+      const customer = await this.addAccount.execute({
         name,
         email,
         password
       } as AddAccountModel.Params);
+
+      return created(customer);
     } catch (error) {
       console.error(error);
       return serverError();
