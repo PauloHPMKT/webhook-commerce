@@ -189,6 +189,28 @@ describe('SignupCustomerController', () => {
       name: 'any_name',
       email: 'any_email@mail.com',
       password: 'password',
-    })
-  })
+    });
+  });
+
+  it('should return 201 if valid data is provided to create a customer', async () => {
+    const { sut } = makeSut();
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        email: 'any_email@mail.com',
+        password: 'password',
+        passwordConfirmation: 'password'
+      }
+    }
+    const response = await sut.handle(httpRequest)
+    expect(response.statusCode).toBe(201)
+    expect(response.body).toEqual({
+      id: 'valid_id',
+      name: 'valid_name',
+      email: 'any_email@mail.com',
+      password: 'valid_password',
+      isActive: true,
+      created_at: new Date('2015-05-05')
+    });
+  });
 });
