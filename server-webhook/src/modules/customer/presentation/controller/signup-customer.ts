@@ -30,6 +30,10 @@ export class SignUpCustomerController implements Controller {
         return badRequest(new InvalidParamError('email'));
       }
 
+      if (password !== passwordConfirmation) {
+        return badRequest(new InvalidParamError('passwordConfirmation'));
+      }
+
       await this.addAccount.execute({
         name,
         email,
