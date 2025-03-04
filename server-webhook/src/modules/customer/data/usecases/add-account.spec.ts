@@ -1,6 +1,27 @@
+import { Customer } from "../../domain/enitites/Customer";
+import { AddAccountRepositoryModel } from "../../domain/models/add-account-repositpry";
+import { AddAccountRepository } from "../protocols/add-account-repository";
 import { Encrypter } from "../protocols/encrypter";
 import { FindCustomerRepository } from "../protocols/find-customer-repository";
 import { AddAccountUseCase } from "./add-account";
+
+const makeAddAccountRepository = (): AddAccountRepository => {
+  class AddAccountRepositoryStub implements AddAccountRepository {
+    async add(accountData: AddAccountRepositoryModel.Params): Promise<AddAccountRepositoryModel.Result> {
+      return new Promise((resolve) => resolve({
+        id: 'valid_id',
+        name: 'valid_name',
+        email: 'any_email@mail.com',
+        password: 'hashed_password',
+        isActive: true,
+        role: Customer.Role.CUSTOMER,
+        avatar: null,
+        created_at: new Date('20215-09-01')
+      }));
+    }
+  }
+  return new AddAccountRepositoryStub();
+}
 
 const makeFindCustomerByEmailRepository = (): FindCustomerRepository => {
   class FindCustomerByEmailRepositoryStub implements FindCustomerRepository {
@@ -21,13 +42,19 @@ const makeEncripter = (): Encrypter => {
 }
 
 const makeSut = (): SutTypes => {
+  const addAccountRepositoryStub = makeAddAccountRepository();
   const findCustomerByEmailRepositoryStub = makeFindCustomerByEmailRepository();
   const encrypterStub = makeEncripter();
-  const sut = new AddAccountUseCase(encrypterStub, findCustomerByEmailRepositoryStub);
+  const sut = new AddAccountUseCase(
+    encrypterStub,
+    findCustomerByEmailRepositoryStub,
+    addAccountRepositoryStub
+  );
   return {
     sut,
     encrypterStub,
-    findCustomerByEmailRepositoryStub
+    findCustomerByEmailRepositoryStub,
+    addAccountRepositoryStub
   }
 }
 
@@ -35,6 +62,7 @@ interface SutTypes {
   sut: AddAccountUseCase;
   encrypterStub: Encrypter;
   findCustomerByEmailRepositoryStub: FindCustomerRepository;
+  addAccountRepositoryStub: AddAccountRepository;
 }
 
 describe('AddAccountUseCase', () => {
@@ -82,4 +110,24 @@ describe('AddAccountUseCase', () => {
     const promise = sut.execute(accountData);
     await expect(promise).rejects.toThrow();
   });
+
+  it('should call AddAccountRepository with correct values', async () => {
+    const { sut, addAccountRepositoryStub } = makeSut();
+    const addSpy = jest.spyOn(addAccountRepositoryStub, 'add');
+    const accountData = {
+      name: 'valid_name',
+      email: 'any_email@mail.com',
+      password: 'any_password'
+    }
+    await sut.execute(accountData);
+    expect(addSpy).toHaveBeenCalledWith(expect.objectContaining({
+      name: 'valid_name',
+      email: 'any_email@mail.com',
+      password: 'hashed_password',
+      isActive: true,
+      role: Customer.Role.CUSTOMER,
+      avatar: null,
+      created_at: expect.any(Date)
+    }));
+  })
 });
