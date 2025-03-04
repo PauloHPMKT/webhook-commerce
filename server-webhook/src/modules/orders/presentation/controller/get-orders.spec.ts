@@ -7,7 +7,45 @@ import { GetOrdersController } from "./get-orders";
 const makeGetOrdersUseCase = (): GetOrders => {
   class GetOrdersStub implements GetOrders {
     async execute(): Promise<GetOrdersModel.Response> {
-      return [];
+      let created_at = new Date("2025-03-02T23:27:26.064Z");
+      return [{
+        id: "valid_id_1",
+        status: Order.Status.CREATED,
+        paymentData: [
+          {
+            transactionId: "h6ojixxqsmn",
+            amount: 100,
+            currency: "USD",
+            paymentMethod: "credit_card",
+            creditCard: {
+              number: "1234567890123456",
+              expirationDate: "12/2022",
+              cvv: "123"
+            }
+          }
+        ],
+        created_at,
+        updated_at: null
+      },
+      {
+        id: "valid_id_2",
+        status: Order.Status.CREATED,
+        paymentData: [
+          {
+            transactionId: "h6ojixxqsmn",
+            amount: 100,
+            currency: "USD",
+            paymentMethod: "credit_card",
+            creditCard: {
+              number: "1234567890123456",
+              expirationDate: "12/2022",
+              cvv: "123"
+            }
+          }
+        ],
+        created_at,
+        updated_at: null
+      }];
     }
   }
   return new GetOrdersStub();
