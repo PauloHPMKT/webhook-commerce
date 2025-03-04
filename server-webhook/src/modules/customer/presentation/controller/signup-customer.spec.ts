@@ -140,6 +140,21 @@ describe('SignupCustomerController', () => {
     expect(isValidSpy).toHaveBeenCalledWith('any_email@mail.com')
   });
 
+  it('should return 400 if passwordConfirmation not match', async () => {
+    const { sut } = makeSut();
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        email: 'any_email@mail.com',
+        password: 'password',
+        passwordConfirmation: 'invalid_password'
+      }
+    }
+    const result = await sut.handle(httpRequest)
+    expect(result.statusCode).toBe(400)
+    expect(result.body).toEqual(new InvalidParamError('passwordConfirmation'))
+  });
+
   it('should return 500 if AddAccount throws', async () => {
     const { sut, addAccountStub } = makeSut();
     jest.spyOn(addAccountStub, 'execute').mockImplementationOnce(() => {
