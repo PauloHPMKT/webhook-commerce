@@ -131,5 +131,13 @@ describe('GetOrdersController', () => {
         updated_at: null
       },
     ]);
+  });
+
+  it('should return 500 if GetOrders throws', async () => {
+    const { sut, getOrdersUseCase } = makeSut();
+    jest.spyOn(getOrdersUseCase, 'execute').mockRejectedValueOnce(new Error());
+    const response = await sut.handle();
+    expect(response.statusCode).toBe(500);
+    expect(response.body).toEqual(new Error('Internal server error'));
   })
 });
