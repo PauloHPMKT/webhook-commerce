@@ -143,5 +143,25 @@ describe('AddAccountUseCase', () => {
     };
     const promise = sut.execute(accountData);
     await expect(promise).rejects.toThrow();
+  });
+
+  it('should return an account on success', async () => {
+    const { sut } = makeSut();
+    const accountData = {
+      name: 'valid_name',
+      email: 'any_email@mail.com',
+      password: 'any_password'
+    };
+    const account = await sut.execute(accountData);
+    expect(account).toEqual({
+      id: 'valid_id',
+      name: 'valid_name',
+      email: 'any_email@mail.com',
+      password: 'hashed_password',
+      isActive: true,
+      role: 'customer',
+      avatar: null,
+      created_at: new Date('20215-09-01')
+    });
   })
 });
