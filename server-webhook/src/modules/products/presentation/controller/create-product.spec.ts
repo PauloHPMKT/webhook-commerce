@@ -203,4 +203,52 @@ describe('CreateProductController', () => {
       createdAt: new Date('2025-09-01T00:00:00.000Z'),
     });
   });
-})
+
+  it('should return 201 if valid data is provided with images', async () => {
+    const { sut, createProductUseCaseStub } = makeSut();
+    jest.spyOn(createProductUseCaseStub, 'execute').mockImplementationOnce(async () => {
+      const createdAt = new Date('2025-09-01T00:00:00.000Z');
+      const product = {
+        id: 'valid_id',
+        code: 'valid_code',
+        name: 'valid_name',
+        brand: 'valid_brand',
+        description: 'valid_description',
+        price: 10,
+        quantity: 10,
+        images: ['image1', 'image2'],
+        discount: null,
+        category: [],
+        status: Product.Status.ACTIVE,
+        createdAt,
+      };
+      return new Promise(resolve => resolve(product));
+    });
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        brand: 'any_brand',
+        description: 'any_description',
+        price: 10,
+        quantity: 10,
+        images: ['image1', 'image2'],
+      }
+    }
+    const response = await sut.handle(httpRequest);
+    expect(response.statusCode).toBe(201);
+    expect(response.body).toEqual({
+      id: 'valid_id',
+      code: 'valid_code',
+      name: 'valid_name',
+      brand: 'valid_brand',
+      description: 'valid_description',
+      price: 10,
+      quantity: 10,
+      images: ['image1', 'image2'],
+      discount: null,
+      category: [],
+      status: Product.Status.ACTIVE,
+      createdAt: new Date('2025-09-01T00:00:00.000Z'),
+    });
+  });
+});
