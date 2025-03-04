@@ -1,3 +1,5 @@
+import { OrderEntity } from "../../entities/Order";
+
 export interface GetOrders {
-  execute(): Promise<any>
+  execute(): Promise<OrderEntity[]>;
 }
