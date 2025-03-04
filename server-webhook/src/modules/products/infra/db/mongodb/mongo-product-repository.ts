@@ -1,7 +1,7 @@
 import { ObjectId } from "mongodb";
 import { CreateProductRepository } from "../../../data/protocols/create-product-repository";
 import { CreateProductModel } from "../../../domain/models/product";
-import { MongoHelper } from "./helpers/mongo-client";
+import { MongoHelper } from "../../../../../shared/infra/db/mongo-client";
 
 export class MongoProductRepository implements CreateProductRepository {
   async create(data: CreateProductModel.Repository): Promise<CreateProductModel.Repository> {

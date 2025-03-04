@@ -1,5 +1,5 @@
 import { App } from "./main/app";
-import { MongoHelper } from "./modules/products/infra/db/mongodb/helpers/mongo-client";
+import { MongoHelper } from "./shared/infra/db/mongo-client";
 
 MongoHelper.connect('mongodb://localhost:27017/webhook-commerce')
   .then(async () => {

@@ -1,5 +1,5 @@
 import { MongoProductRepository } from './mongo-product-repository';
-import { MongoHelper } from './helpers/mongo-client';
+import { MongoHelper } from '../../../../../shared/infra/db/mongo-client';
 import { CreateProductModel } from '../../../domain/models/product';
 import { ObjectId } from 'mongodb';
 
