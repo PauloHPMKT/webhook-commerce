@@ -3,7 +3,8 @@ import { InvalidParamError } from "../../../../shared/presentation/errors/invali
 import { Controller } from "../../../../shared/presentation/protocol";
 import { EmailValidator } from "../protocols/email-validator";
 import { SignUpCustomerController } from "./signup-customer";
-import { AddAccount, AddAccountModel } from "../../domain/usecases/add-aacount";
+import { AddAccountModel } from "../../domain/models/add-aacount";
+import { AddAccount } from "../../domain/usecases/add-account";
 
 const makeAddAccount = (): AddAccount => {
   class AddAccountStub implements AddAccount {
@@ -13,7 +14,9 @@ const makeAddAccount = (): AddAccount => {
         name: 'valid_name',
         email: 'any_email@mail.com',
         password: 'valid_password',
+        role: 'customer',
         isActive: true,
+        avatar: null,
         created_at: new Date('2015-05-05')
       }));
     }
@@ -209,7 +212,9 @@ describe('SignupCustomerController', () => {
       name: 'valid_name',
       email: 'any_email@mail.com',
       password: 'valid_password',
+      role: 'customer',
       isActive: true,
+      avatar: null,
       created_at: new Date('2015-05-05')
     });
   });

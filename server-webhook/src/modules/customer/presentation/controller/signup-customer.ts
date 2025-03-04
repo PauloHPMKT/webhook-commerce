@@ -11,7 +11,7 @@ import {
 import { EmailValidator } from "../protocols/email-validator";
 import { InvalidParamError } from "../../../../shared/presentation/errors/invalid-param-error";
 import { MissingParamError } from "../../../../shared/presentation/errors/missing-param-error";
-import { AddAccount, AddAccountModel } from "../../domain/usecases/add-aacount";
+import { AddAccount, AddAccountModel } from "../../domain/models/add-aacount";
 
 export class SignUpCustomerController implements Controller {
   constructor(
