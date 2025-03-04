@@ -3,6 +3,23 @@ import { InvalidParamError } from "../../../../shared/presentation/errors/invali
 import { Controller } from "../../../../shared/presentation/protocol";
 import { EmailValidator } from "../protocols/email-validator";
 import { SignUpCustomerController } from "./signup-customer";
+import { AddAccount, AddAccountModel } from "../../domain/usecases/add-aacount";
+
+const makeAddAccount = (): AddAccount => {
+  class AddAccountStub implements AddAccount {
+    execute(account: AddAccountModel.Params): Promise<AddAccountModel.Result> {
+      return new Promise(resolve => resolve({
+        id: 'valid_id',
+        name: 'valid_name',
+        email: 'any_email@mail.com',
+        password: 'valid_password',
+        isActive: true,
+        created_at: new Date('2015-05-05')
+      }));
+    }
+  }
+  return new AddAccountStub()
+}
 
 const makeEmailValidator = (): EmailValidator => {
   class EmailValidatorStub implements EmailValidator {
@@ -14,17 +31,20 @@ const makeEmailValidator = (): EmailValidator => {
 }
 
 const makeSut = (): SutTypes => {
+  const addAccountStub = makeAddAccount()
   const emailValidatorStub = makeEmailValidator()
-  const sut = new SignUpCustomerController(emailValidatorStub)
+  const sut = new SignUpCustomerController(emailValidatorStub, addAccountStub);
   return {
     sut,
-    emailValidatorStub
+    emailValidatorStub,
+    addAccountStub
   }
 }
 
 interface SutTypes {
   sut: Controller
   emailValidatorStub: EmailValidator
+  addAccountStub: AddAccount
 }
 
 describe('SignupCustomerController', () => {
@@ -119,4 +139,22 @@ describe('SignupCustomerController', () => {
     await sut.handle(httpRequest)
     expect(isValidSpy).toHaveBeenCalledWith('any_email@mail.com')
   });
+
+  it('should return 500 if AddAccount throws', async () => {
+    const { sut, addAccountStub } = makeSut();
+    jest.spyOn(addAccountStub, 'execute').mockImplementationOnce(() => {
+      throw new Error()
+    })
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        email: 'any_email@mail.com',
+        password: 'password',
+        passwordConfirmation: 'password'
+      }
+    }
+    const result = await sut.handle(httpRequest)
+    expect(result.statusCode).toBe(500)
+    expect(result.body).toEqual(new Error('Internal server error'))
+  })
 });
