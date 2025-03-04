@@ -24,6 +24,8 @@ export class App {
     const routes = [
       this.routes.orderRoutes,
       this.routes.productRoutes,
+      this.routes.cartRoutes,
+      this.routes.customerRoutes,
     ]
     this.each(routes);
   }
