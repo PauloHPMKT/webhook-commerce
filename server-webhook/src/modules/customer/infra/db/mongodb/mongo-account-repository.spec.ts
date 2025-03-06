@@ -62,5 +62,12 @@ describe('MongoAccountRepository', () => {
     const { sut } = makeSut();
     const account = await sut.findByEmail('valid_email');
     expect(account).toBeTruthy();
-  })
+  });
+
+  it('should return false if a valid account search by email is not found', async () => {
+    const { sut } = makeSut();
+    jest.spyOn(sut, 'findByEmail').mockResolvedValueOnce(false);
+    const account = await sut.findByEmail('valid_email');
+    expect(account).toBeFalsy();
+  });
 });
