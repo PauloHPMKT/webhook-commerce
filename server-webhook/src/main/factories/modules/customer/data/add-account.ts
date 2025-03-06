@@ -3,9 +3,6 @@ import { AddAccount } from "../../../../../modules/customer/domain/usecases/add-
 import { MongoAccountRepository } from "../../../../../modules/customer/infra/db/mongodb/mongo-account-repository";
 import { BcryptAdapter } from "../../../../../shared/infra/criptography/bcrypt-adapter";
 
-
-
-
 export const makeAddAccountUseCase = (): AddAccount => {
   const salt = 12
   const mongoAccountRepository = new MongoAccountRepository();

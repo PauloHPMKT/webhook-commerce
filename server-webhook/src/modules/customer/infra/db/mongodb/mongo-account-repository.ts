@@ -21,6 +21,11 @@ export class MongoAccountRepository implements
   }
 
   async findByEmail(email: string): Promise<boolean> {
-    throw new Error('Method not implemented.');
+    const customerCollection = MongoHelper.getCollection('customers');
+    const customer = await customerCollection.findOne(
+      { email },
+      { projection: { _id: 1 } }
+    )
+    return customer !== null;
   }
 }
