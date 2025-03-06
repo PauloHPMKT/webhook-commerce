@@ -57,4 +57,10 @@ describe('MongoAccountRepository', () => {
     expect(account.avatar).toBeNull();
     expect(account.created_at).toBeInstanceOf(Date);
   });
+
+  it('should return a valid account id if search by email', async () => {
+    const { sut } = makeSut();
+    const account = await sut.findByEmail('valid_email');
+    expect(account).toBeTruthy();
+  })
 });
