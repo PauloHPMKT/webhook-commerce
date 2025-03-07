@@ -9,7 +9,7 @@ export namespace AddToCartModel {
   export type Result = {
     id: string;
     items: { productId: string, quantity: number }[];
-    createdAt: Date;
-    updatedAt: Date | null;
+    created_at: Date;
+    updated_at: Date | null;
   };
 }

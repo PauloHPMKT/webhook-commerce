@@ -5,6 +5,7 @@ import { CreateCartModel } from "../../../domain/models/create-cart.model";
 import { UpdateCartRepository } from "../../../data/protocols/update-cart-repository";
 import { FindCartByCustomerRepository } from "../../../data/protocols/find-cart-by-customer-repository";
 import { FindCartModel } from "../../../domain/models/find-cart-model";
+import { UpdateCartModel } from "../../../domain/models/update-cart-model";
 
 export class MongoCartRepository implements
   CreateCartRepository,
@@ -31,9 +32,10 @@ export class MongoCartRepository implements
     return MongoHelper.map(cart);
   }
 
-  async update(cart: any): Promise<any> {
+  async update(cart: UpdateCartModel.Params): Promise<UpdateCartModel.Result> {
     const cartCollection = MongoHelper.getCollection('carts');
     const cartId = { _id: ObjectId.createFromHexString(cart.id) };
+    delete cart.id;
     await cartCollection.updateOne(
       cartId,
       {
