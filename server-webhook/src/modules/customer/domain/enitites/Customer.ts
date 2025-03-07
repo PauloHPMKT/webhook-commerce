@@ -8,6 +8,7 @@ export class Customer {
   public isActive?: boolean;
   public readonly role?: Customer.Role;
   public avatar?: string;
+  public cartId?: string;
   public created_at?: Date;
 
   constructor(props: Omit<Customer, 'id'>, id?: string) {
@@ -18,6 +19,10 @@ export class Customer {
     this.role = props.role ?? Customer.Role.CUSTOMER;
     this.avatar = props.avatar ?? null;
     this.created_at = props.created_at ?? new Date();
+  }
+
+  assignCart(cartId: string) {
+    this.cartId = cartId;
   }
 }
 
