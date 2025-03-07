@@ -6,14 +6,16 @@ const makeAddCartUseCase = (): AddToCart => {
   class AddToCartStub implements AddToCart {
     async execute(data: any): Promise<any> {
       return new Promise(resolve => resolve({
-        cartId: 'any_cart_id',
-        products: [
+        id: 'any_cart_id',
+        items: [
           {
             productId: 'any_product_id',
             quantity: 1
           }
         ],
-        quantity: 1
+        quantity: 1,
+        created_at: new Date('2025-09-01'),
+        updated_at: null
       }));
     }
   }
@@ -40,7 +42,6 @@ describe('AddToCartController', () => {
     const executeSpy = jest.spyOn(addToCartStub, 'execute')
     const httpRequest = {
       body: {
-        cartId: 'any_cart_id',
         productId: 'any_product_id',
         quantity: 1
       }

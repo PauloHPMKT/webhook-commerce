@@ -17,7 +17,7 @@ export class AddToCartController implements Controller {
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      const { productId, quantity } = httpRequest.body;
+      const { customerId, productId, quantity } = httpRequest.body;
       const requiredFields = ['productId', 'quantity'];
       for (const field of requiredFields) {
         if (!httpRequest.body[field]) {
@@ -25,6 +25,7 @@ export class AddToCartController implements Controller {
         }
       }
       const data: AddToCartModel.Params = {
+        customerId,
         productId,
         quantity
       };
