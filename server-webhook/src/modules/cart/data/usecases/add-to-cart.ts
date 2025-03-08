@@ -1,5 +1,6 @@
 import { CustomerService } from "../../../../shared/services/customer-service";
 import { Cart } from "../../domain/entities/Cart";
+import { CartItem } from "../../domain/entities/Cart-items";
 import { AddToCartModel } from "../../domain/models/add-to-cart-model";
 import { AddToCart } from "../../domain/usecases/add-to-cart";
 import { CreateCartRepository } from "../protocols/create-cart-repository";
@@ -28,11 +29,15 @@ export class AddToCartUseCase implements AddToCart {
       await this.customerService.assignCart(customer.id, cart.id);
     }
     const cartData = await this.findCartByCustomer.findById(customer.id);
-    cart = new Cart(
-      { ...cartData },
-      cartData.id
-    ).addItem(data.productId, data.quantity);
+    cart = new Cart({ ...cartData }, cartData.id);
 
+    const item = new CartItem({
+      productId: data.productId,
+      quantity: data.quantity,
+      price: data.price,
+    });
+
+    cart.addItem(item);
     return await this.updateCartRepository.update(cart);
   }
 }

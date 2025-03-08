@@ -19,16 +19,26 @@ export class Cart {
     this.updated_at = props.updated_at ?? null;
   }
 
-  addItem(productId: string, quantity: number) {
+  addItem(item: Cart.CartItem) {
+    const { productId, quantity, price, totalPrice, added_at, updated_at } = item;
     const existingItem = this.items.find(
-      item => item.productId === productId
+      it => it.productId === item.productId
     );
-    existingItem
-      ? existingItem.quantity += quantity
-      : this.items.push({
-          productId,
-          quantity,
-        });
+    if(existingItem) {
+      existingItem.quantity += item.quantity;
+      existingItem.totalPrice = existingItem.quantity * existingItem.price;
+      existingItem.updated_at = new Date();
+      this.updated_at = new Date();
+      return this;
+    }
+    this.items.push({
+      productId,
+      quantity,
+      price,
+      totalPrice,
+      added_at,
+      updated_at
+    });
     this.updated_at = new Date();
     return this;
   }
@@ -60,5 +70,9 @@ export namespace Cart {
   export interface CartItem {
     productId: string
     quantity: number
+    price: number
+    totalPrice?: number
+    added_at?: Date
+    updated_at?: Date | null
   }
 }
