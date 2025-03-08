@@ -16,7 +16,7 @@
                             roots and, more specifically, his hometown of New York City is a big way.
                         </p>
                         <button class="mt-8 bg-white text-lg text-black py-4 px-20 rounded-full border-4 font-semibold">
-                            Purchase nows
+                            Purchase now
                         </button>
                     </div>
                 </div>
@@ -38,6 +38,19 @@
                 </div>
             </div>
         </section>
+        <section class="image-bg-parax my-32">
+            <div class="max-w-[80%] mx-auto flex justify-between h-80">
+                <div>
+                    Section 1
+                </div>
+                <div>
+                    Section 2
+                </div>
+                <div>
+                    Section 3
+                </div>
+            </div>
+        </section>  
     </div>
 </template>
 
@@ -55,5 +68,12 @@ const { products, addProduct } = useCart();
     background-size: cover;
     background-repeat: no-repeat;
     background-position: top right;
+}
+
+.image-bg-parax {
+    background-image: url('../assets/parallax_1.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 </style>
