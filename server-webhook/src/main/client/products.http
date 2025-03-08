@@ -1,0 +1,12 @@
+POST http://localhost:3001/product
+Content-Type: application/json
+
+{
+  "name": "Product 1",
+  "brand": "Nike S.A",
+  "description": "this is a description of a fantastic product",
+  "price": 350.00,
+  "quantity": 10,
+  "images": ["http://image1.jpg"],
+  "category": ["shoes", "sport"]
+}

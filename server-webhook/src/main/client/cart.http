@@ -2,7 +2,8 @@ POST http://localhost:3001/cart
 Content-Type: application/json
 
 {
-  "customerId": "40f343ae6a5f125a6410c549",
-  "productId": "40f343ae6a5f125a6410c570",
-  "quantity": 5
+  "customerId": "44bc2bf07c3475ec6e9316c7",
+  "productId": "40f343ae6a5f125a6410c564",
+  "quantity": 2,
+  "price": 80
 }
