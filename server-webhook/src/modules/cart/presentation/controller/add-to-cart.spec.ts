@@ -52,8 +52,10 @@ describe('AddToCartController', () => {
     const executeSpy = jest.spyOn(addToCartStub, 'execute')
     const httpRequest = {
       body: {
+        customerId: 'any_customer_id',
         productId: 'any_product_id',
-        quantity: 1
+        quantity: 1,
+        price: 10
       }
     }
     await sut.handle(httpRequest);
