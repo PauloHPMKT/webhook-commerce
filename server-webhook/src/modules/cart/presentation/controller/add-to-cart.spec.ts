@@ -42,6 +42,11 @@ interface SutTypes {
 }
 
 describe('AddToCartController', () => {
+  it('should be defined', () => {
+    const { sut } = makeSut();
+    expect(sut).toBeDefined();
+  });
+
   it('should call AddToCartUseCase with correct values', async () => {
     const { sut, addToCartStub } = makeSut();
     const executeSpy = jest.spyOn(addToCartStub, 'execute')
