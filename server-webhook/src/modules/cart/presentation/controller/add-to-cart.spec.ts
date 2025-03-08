@@ -86,4 +86,22 @@ describe('AddToCartController', () => {
     await sut.handle(httpRequest);
     expect(executeSpy).toHaveBeenCalledWith(httpRequest.body);
   });
+
+  it('should throw if AddToCartUseCase throws', async () => {
+    const { sut, addToCartStub } = makeSut();
+    jest.spyOn(addToCartStub, 'execute').mockImplementationOnce(() => {
+      throw new Error();
+    });
+    const httpRequest = {
+      body: {
+        customerId: 'any_customer_id',
+        productId: 'any_product_id',
+        quantity: 1,
+        price: 10
+      }
+    }
+    const httpResponse = await sut.handle(httpRequest);
+    expect(httpResponse.statusCode).toBe(500);
+    expect(httpResponse.body).toEqual(new Error('Internal server error'));
+  })
 });
