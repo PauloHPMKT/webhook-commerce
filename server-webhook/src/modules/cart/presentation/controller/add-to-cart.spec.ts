@@ -1,19 +1,24 @@
 import { Controller } from "../../../../shared/presentation/protocol";
+import { AddToCartModel } from "../../domain/models/add-to-cart-model";
 import { AddToCart } from "../../domain/usecases/add-to-cart";
 import { AddToCartController } from "./add-to-cart";
 
 const makeAddCartUseCase = (): AddToCart => {
   class AddToCartStub implements AddToCart {
-    async execute(data: any): Promise<any> {
+    async execute(data: AddToCartModel.Params): Promise<AddToCartModel.Result> {
       return new Promise(resolve => resolve({
         id: 'any_cart_id',
         items: [
           {
             productId: 'any_product_id',
-            quantity: 1
+            quantity: 1,
+            price: 10,
+            totalPrice: 10,
+            added_at: new Date('2025-09-01'),
+            updated_at: null
           }
         ],
-        quantity: 1,
+        userId: 'any_user_id',
         created_at: new Date('2025-09-01'),
         updated_at: null
       }));
