@@ -103,5 +103,35 @@ describe('AddToCartController', () => {
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse.statusCode).toBe(500);
     expect(httpResponse.body).toEqual(new Error('Internal server error'));
-  })
+  });
+
+  it('should return 200 if valid data is provided', async () => {
+    const { sut } = makeSut();
+    const httpRequest = {
+      body: {
+        customerId: 'any_customer_id',
+        productId: 'any_product_id',
+        quantity: 1,
+        price: 10
+      }
+    }
+    const httpResponse = await sut.handle(httpRequest);
+    expect(httpResponse.statusCode).toBe(200);
+    expect(httpResponse.body).toEqual({
+      id: 'any_cart_id',
+      items: [
+        {
+          productId: 'any_product_id',
+          quantity: 1,
+          price: 10,
+          totalPrice: 10,
+          added_at: new Date('2025-09-01'),
+          updated_at: null
+        }
+      ],
+      userId: 'any_user_id',
+      created_at: new Date('2025-09-01'),
+      updated_at: null
+    });
+  });
 });
