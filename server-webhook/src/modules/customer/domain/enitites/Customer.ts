@@ -18,6 +18,7 @@ export class Customer {
     this.isActive = props.isActive ?? true;
     this.role = props.role ?? Customer.Role.CUSTOMER;
     this.avatar = props.avatar ?? null;
+    this.cartId = props.cartId ?? null;
     this.created_at = props.created_at ?? new Date();
   }
 
