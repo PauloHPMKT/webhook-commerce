@@ -60,6 +60,18 @@ describe('AddToCartController', () => {
     expect(httpResponse.body).toEqual(new MissingParamError('productId'));
   });
 
+  it('should return 400 if no quantity is provided', async () => {
+    const { sut } = makeSut();
+    const httpRequest = {
+      body: {
+        productId: 'any_product_id'
+      }
+    }
+    const httpResponse = await sut.handle(httpRequest);
+    expect(httpResponse.statusCode).toBe(400);
+    expect(httpResponse.body).toEqual(new MissingParamError('quantity'));
+  });
+
   it('should call AddToCartUseCase with correct values', async () => {
     const { sut, addToCartStub } = makeSut();
     const executeSpy = jest.spyOn(addToCartStub, 'execute')
